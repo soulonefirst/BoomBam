@@ -9,21 +9,20 @@ public class InputCatcherSetter : MonoBehaviour
     private NativeArray<Entity> entities;
     private DynamicBuffer<InputDataPosition> input;
     private float screenToCameraDistance;
-    public static float screenWidthPercent;
+    public static float screenWidth;
     public static float screenHight;
     private void Start()
     {
 
         cam = GetComponent<Camera>();
         screenToCameraDistance = math.abs(transform.position.z);
-        screenWidthPercent = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, screenToCameraDistance)).x / 100;
+        screenWidth = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, screenToCameraDistance)).x;
         screenHight = cam.ScreenToWorldPoint(new Vector3( 0, cam.pixelHeight, screenToCameraDistance)).y;
         EM = World.DefaultGameObjectInjectionWorld.EntityManager;     
 
     }
     private void Update()
     {
-
 
         NativeList<float3> touchPosition = new NativeList<float3>(Allocator.Temp);
         if (Input.GetMouseButton(0))

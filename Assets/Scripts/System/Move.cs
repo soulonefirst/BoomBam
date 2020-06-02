@@ -2,6 +2,7 @@
 using Unity.Physics;
 using Unity.Transforms;
 using Unity.Mathematics;
+using UnityEngine;
 [UpdateAfter(typeof(InputManager))]
 
 public class Move : SystemBase
@@ -10,15 +11,13 @@ public class Move : SystemBase
     {
         var deltaTime = Time.DeltaTime;
         Entities
-            .ForEach((ref PhysicsVelocity velocity, in Translation trans, in Speed speed,  in TargetPosition targetPosition) =>
+            .ForEach((ref TargetPosition targetPosition,ref PhysicsVelocity velocity, ref Translation trans, in Speed speed) =>
             {
-                float speedX = 0;
-                float speedY = 0;
-                if (math.abs(trans.Value.y - targetPosition.Value.y) > 0.03)
-                    speedY = trans.Value.y < targetPosition.Value.y ? speed.Value : -speed.Value;
-                if(math.abs(trans.Value.x - targetPosition.Value.x) > 0.03)
-                    speedX = trans.Value.x < targetPosition.Value.x ? speed.Value : -speed.Value;
-                    velocity.Linear = new float3(math.abs(trans.Value.x - targetPosition.Value.x) * speedX, math.abs(trans.Value.y - targetPosition.Value.y) * speedY, 0) * deltaTime;
+                if (targetPosition.targetPosition.Equals(float3.zero))
+                    return;
+
+                float3 dir = math.normalize(targetPosition.targetPosition - targetPosition.startPosition);
+                velocity.Linear = dir*speed.Value * deltaTime;
             }).Schedule();
         Dependency.Complete();
     }

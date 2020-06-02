@@ -3,5 +3,6 @@ using Unity.Mathematics;
 [GenerateAuthoringComponent]
 public struct TargetPosition : IComponentData
 {
-    public float3 Value;
+    public float3 targetPosition;
+    public float3 startPosition;
 }
