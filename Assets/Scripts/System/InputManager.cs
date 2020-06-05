@@ -9,21 +9,27 @@ public class InputManager : SystemBase
         var screenWidthPercent = InputCatcherSetter.screenWidth / 100;
         var screenHight = InputCatcherSetter.screenHight;
         Entities
-            .ForEach((ref AttackInputPosition AIP, ref TargetPosition TP, ref Speed speed, in DynamicBuffer<InputDataPosition> IDPs, in Translation trans, in GunMoveSettings settings) =>
+            .ForEach((ref AttackData AIP, ref MoveData MD, ref Speed speed, in DynamicBuffer<InputDataPosition> IDPs, in Translation trans, in GunMoveSettings settings) =>
             {
-                AIP.Value = float3.zero;
+                //сброс позиции атаки
+                AIP.attackPoint = float3.zero;
+                //приравнивание текущей позиции с начальной позицией
+                MD.startPosition = trans.Value;
+                //скорость в зависимости от растояния между текущей и заданой позицией
+                speed.Value = math.lerp(settings.minSpeed, settings.maxSpeed, math.abs(MD.targetPosition.y - MD.startPosition.y));
                 for (int i = 0; i < IDPs.Length; i++)
                 {
-                    TP.startPosition = trans.Value;
                     if (IDPs[i].Value.x != 0)
                     {
-                        if (IDPs[i].Value.x < screenWidthPercent * 30)
+                        //разделение экрана на зоны движения и стерльбы
+                        if (IDPs[i].Value.x < screenWidthPercent * 20) 
                         {
-                            TP.targetPosition = new float3(trans.Value.x, IDPs[i].Value.y, 0);
-                            speed.Value = math.smoothstep(-settings.startSpeed, math.abs(-screenHight - screenHight), math.abs(trans.Value.y - IDPs[i].Value.y)) * settings.maxSpeed;
+                            //назначение заданой позиции для движения
+                           MD.targetPosition = new float3(trans.Value.x, IDPs[i].Value.y, 0);
                         }
                         else
-                            AIP.Value = IDPs[i].Value;
+                            //назначение координат атаки
+                            AIP.attackPoint = IDPs[i].Value;
                     }
                 }
 

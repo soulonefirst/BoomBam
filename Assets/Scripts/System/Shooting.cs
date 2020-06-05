@@ -1,28 +1,34 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
-using UnityEngine;
 using Unity.Mathematics;
+using Unity.Physics;
 
 public class Shooting : SystemBase
 {
-    double time;
+    EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
+    protected override void OnCreate()
+    {
+        m_EndSimulationEcbSystem = World
+            .GetOrCreateSystem<EndSimulationEntityCommandBufferSystem>();
+    }
     protected override void OnUpdate()
     {
+        var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
+        var time = Time.ElapsedTime;
         Entities
-            .WithoutBurst()
-            .WithStructuralChanges()
-            .ForEach((in AttackInputPosition attackPosition,in Translation translation, in Bullet bullet) => 
+            .ForEach((int entityInQueryIndex, ref AttackData attackPosition, in Translation translation, in Bullet bullet) => 
             {
-                var EM = World.DefaultGameObjectInjectionWorld.EntityManager;
-                
-                if(attackPosition.Value.x != 0 && Time.ElapsedTime - time > 0.5 )
+
+                if (attackPosition.attackPoint.x != 0 && time - attackPosition.lastAttackTime > attackPosition.fireRate )
                 {
-                    var b = EM.Instantiate(bullet.Value);
-                    EM.SetComponentData(b, new TargetPosition { targetPosition = attackPosition.Value, startPosition = translation.Value });
-                    
-                    EM.SetComponentData(b, new Translation { Value = translation.Value });
-                    time = Time.ElapsedTime;
+
+                    var b = ecb.Instantiate(entityInQueryIndex, bullet.Value);
+                    ecb.SetComponent(entityInQueryIndex, b, new MoveData { targetPosition = attackPosition.attackPoint, startPosition = translation.Value, nonStop = 1 }); ;
+                    ecb.SetComponent(entityInQueryIndex, b, new Translation { Value = translation.Value });
+                    ecb.SetComponent(entityInQueryIndex, b, new DamageData { damage = 5,sorceEntity =b });
+                    attackPosition.lastAttackTime = time;
                 }
-            }).Run();
+            }).ScheduleParallel();
+        m_EndSimulationEcbSystem.AddJobHandleForProducer(Dependency);
     }
 }

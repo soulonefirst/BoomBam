@@ -3,5 +3,5 @@
 public struct GunMoveSettings : IComponentData
 {
     public float maxSpeed;
-    public float startSpeed;
+    public float minSpeed;
 }
