@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5067140434205444877}
   - component: {fileID: 5913538551050228266}
   - component: {fileID: -8914450568191090027}
+  - component: {fileID: -3338751973809222210}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -270,4 +271,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  sorceEntity: {fileID: 0}
+--- !u!114 &-3338751973809222210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8752446139770100757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05663c874222a164abddd9153e46a376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: 0

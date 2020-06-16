@@ -3,5 +3,4 @@
 public struct DamageData : IComponentData
 {
     public int damage;
-    public Entity sorceEntity;
 }

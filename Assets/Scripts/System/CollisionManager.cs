@@ -11,18 +11,19 @@ public class CollisionManager : SystemBase
     {
         public ComponentDataFromEntity<DamageData> damageData;
         public ComponentDataFromEntity<TakeDamageData> takeDamage;
+        public ComponentDataFromEntity<DestroyData> destroyData;
         public void Execute(CollisionEvent collisionEvent)
         {
             Entity attacker;
             Entity target;
-            if ((damageData.HasComponent(collisionEvent.Entities.EntityA) || damageData.HasComponent(collisionEvent.Entities.EntityB)) 
-                && (takeDamage.HasComponent(collisionEvent.Entities.EntityA) || takeDamage.HasComponent(collisionEvent.Entities.EntityB)))
+            if ((damageData.HasComponent(collisionEvent.Entities.EntityA) && takeDamage.HasComponent(collisionEvent.Entities.EntityB)) 
+                || (damageData.HasComponent(collisionEvent.Entities.EntityB) && takeDamage.HasComponent(collisionEvent.Entities.EntityA)))
             {
                 attacker = damageData.HasComponent(collisionEvent.Entities.EntityA) ? collisionEvent.Entities.EntityA : collisionEvent.Entities.EntityB;
                 target = takeDamage.HasComponent(collisionEvent.Entities.EntityA) ? collisionEvent.Entities.EntityA : collisionEvent.Entities.EntityB;
                 TakeDamageData takeDamageData = new TakeDamageData { Value = damageData[attacker] };
                 takeDamage[target] = takeDamageData;
-
+                destroyData[attacker] = new DestroyData { Value = true };
             }
 
         }
@@ -41,7 +42,8 @@ public class CollisionManager : SystemBase
         CollisionJob triggerJob = new CollisionJob
         {
             damageData = GetComponentDataFromEntity<DamageData>(),
-            takeDamage = GetComponentDataFromEntity<TakeDamageData>()
+            takeDamage = GetComponentDataFromEntity<TakeDamageData>(),
+            destroyData = GetComponentDataFromEntity<DestroyData>()
         };
         JobHandle job = triggerJob.Schedule(stepPhysicsWorld.Simulation, ref buildPhysicsWorld.PhysicsWorld, Dependency);
         job.Complete();
