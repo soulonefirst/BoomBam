@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6339172786225969112}
   - component: {fileID: -3720158934728569663}
   - component: {fileID: 3180807069434678442}
+  - component: {fileID: 1922128714861978489}
   m_Layer: 0
   m_Name: ExplosiveAreaCollider
   m_TagString: Untagged
@@ -119,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dad58291d42a92b4b82e11f05dfa32f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 2
 --- !u!114 &-3720158934728569663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,3 +155,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 0
+--- !u!114 &1922128714861978489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7548904980754779988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e930b122e1fa42449fec645ee2681ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Value: {r: 0, g: 0, b: 0, a: 0}

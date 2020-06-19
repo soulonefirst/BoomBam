@@ -10,7 +10,6 @@ public class DestoySystem : SystemBase
     protected override void OnUpdate()
     {
         var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer().ToConcurrent();
-        var EM = World.DefaultGameObjectInjectionWorld.EntityManager;
         Entities
             .ForEach((int entityInQueryIndex, Entity entity, in DestroyData dead) =>
             {

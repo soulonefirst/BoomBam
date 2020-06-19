@@ -12,6 +12,7 @@ public class TriggerManager : SystemBase
         public ComponentDataFromEntity<DamageData> damageData;
         public ComponentDataFromEntity<TakeDamageData> takeDamage;
         public ComponentDataFromEntity<DestroyData> destroyData;
+        public ComponentDataFromEntity<ColorData> colorData;
         public void Execute(TriggerEvent triggerEvent)
         {
             Entity attacker;
@@ -21,8 +22,12 @@ public class TriggerManager : SystemBase
             {
                 attacker = damageData.HasComponent(triggerEvent.Entities.EntityA) ? triggerEvent.Entities.EntityA : triggerEvent.Entities.EntityB;
                 target = takeDamage.HasComponent(triggerEvent.Entities.EntityA) ? triggerEvent.Entities.EntityA : triggerEvent.Entities.EntityB;
-                TakeDamageData takeDamageData = new TakeDamageData { Value = damageData[attacker] };
-                takeDamage[target] = takeDamageData;
+                if (colorData[attacker].Value == colorData[target].Value)
+                {
+
+                    TakeDamageData takeDamageData = new TakeDamageData { Value = damageData[attacker] };
+                    takeDamage[target] = takeDamageData;
+                }
                 destroyData[attacker] = new DestroyData { Value = true };
             }
 
@@ -43,7 +48,8 @@ public class TriggerManager : SystemBase
         {
             damageData = GetComponentDataFromEntity<DamageData>(),
             takeDamage = GetComponentDataFromEntity<TakeDamageData>(),
-            destroyData = GetComponentDataFromEntity<DestroyData>()
+            destroyData = GetComponentDataFromEntity<DestroyData>(),
+            colorData = GetComponentDataFromEntity<ColorData>()
         };
         JobHandle job = triggerJob.Schedule(stepPhysicsWorld.Simulation, ref buildPhysicsWorld.PhysicsWorld, Dependency);
         job.Complete();

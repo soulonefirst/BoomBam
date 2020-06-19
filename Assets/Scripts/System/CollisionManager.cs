@@ -3,6 +3,7 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Jobs;
 using Unity.Burst;
+using Unity.Rendering;
 
 public class CollisionManager : SystemBase
 {
@@ -12,17 +13,22 @@ public class CollisionManager : SystemBase
         public ComponentDataFromEntity<DamageData> damageData;
         public ComponentDataFromEntity<TakeDamageData> takeDamage;
         public ComponentDataFromEntity<DestroyData> destroyData;
+        public ComponentDataFromEntity<ColorData> colorData;
         public void Execute(CollisionEvent collisionEvent)
         {
             Entity attacker;
             Entity target;
-            if ((damageData.HasComponent(collisionEvent.Entities.EntityA) && takeDamage.HasComponent(collisionEvent.Entities.EntityB)) 
+            if ((damageData.HasComponent(collisionEvent.Entities.EntityA) && takeDamage.HasComponent(collisionEvent.Entities.EntityB))
                 || (damageData.HasComponent(collisionEvent.Entities.EntityB) && takeDamage.HasComponent(collisionEvent.Entities.EntityA)))
             {
                 attacker = damageData.HasComponent(collisionEvent.Entities.EntityA) ? collisionEvent.Entities.EntityA : collisionEvent.Entities.EntityB;
                 target = takeDamage.HasComponent(collisionEvent.Entities.EntityA) ? collisionEvent.Entities.EntityA : collisionEvent.Entities.EntityB;
-                TakeDamageData takeDamageData = new TakeDamageData { Value = damageData[attacker] };
-                takeDamage[target] = takeDamageData;
+                if (colorData[attacker].Value == colorData[target].Value)
+                {
+
+                    TakeDamageData takeDamageData = new TakeDamageData { Value = damageData[attacker] };
+                    takeDamage[target] = takeDamageData;
+                }
                 destroyData[attacker] = new DestroyData { Value = true };
             }
 
@@ -43,7 +49,8 @@ public class CollisionManager : SystemBase
         {
             damageData = GetComponentDataFromEntity<DamageData>(),
             takeDamage = GetComponentDataFromEntity<TakeDamageData>(),
-            destroyData = GetComponentDataFromEntity<DestroyData>()
+            destroyData = GetComponentDataFromEntity<DestroyData>(),
+            colorData = GetComponentDataFromEntity<ColorData>()
         };
         JobHandle job = triggerJob.Schedule(stepPhysicsWorld.Simulation, ref buildPhysicsWorld.PhysicsWorld, Dependency);
         job.Complete();

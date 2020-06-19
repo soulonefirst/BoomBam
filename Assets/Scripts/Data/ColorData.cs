@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using UnityEngine;
 [GenerateAuthoringComponent]
-public struct DamageData : IComponentData
+public struct ColorData : IComponentData
 {
-    public int damage;
+    public Color Value;
 }

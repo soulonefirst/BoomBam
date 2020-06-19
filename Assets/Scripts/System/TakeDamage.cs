@@ -1,23 +1,24 @@
 ﻿using Unity.Entities;
+using Unity.Rendering;
+using UnityEngine;
 
 public class TakeDamage : SystemBase
 {
     protected override void OnUpdate()
     {
+        var EM = EntityManager;
         Entities
-            .ForEach((ref TakeDamageData damage, ref Hp hp, ref DestroyData destroy) =>
+            .ForEach((Entity entity, ref TakeDamageData damage, ref Hp hp, ref DestroyData destroy) =>
             {
-                if(damage.Value.damage != 0)
-                {
-
-                    hp.Value -= damage.Value.damage;
-                    if (hp.Value < 1)
-                    {
-                        destroy.Value = true;
-
+                    if(damage.Value.damage > 0)
+                    {                    
+                        hp.Value -= damage.Value.damage;
+                        if (hp.Value < 1)
+                        {
+                            destroy.Value = true;
+                        }
+                        damage = new TakeDamageData();                  
                     }
-                    damage = new TakeDamageData();
-                }
             }).Schedule();
     }
 }
