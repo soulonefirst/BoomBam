@@ -13,6 +13,7 @@ public class ConvertPrefabToInstantiate : MonoBehaviour, IDeclareReferencedPrefa
         {
             buffer.Add(conversionSystem.GetPrimaryEntity(prefabs[i]));
         }
+        dstManager.AddBuffer<EntityToSpawnData>(entity);
     }
 
     public void DeclareReferencedPrefabs(List<GameObject> referencedPrefabs)

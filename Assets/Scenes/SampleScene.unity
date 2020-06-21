@@ -885,7 +885,6 @@ GameObject:
   - component: {fileID: 1916200414}
   - component: {fileID: 1916200418}
   - component: {fileID: 1916200411}
-  - component: {fileID: 1916200420}
   - component: {fileID: 1916200416}
   - component: {fileID: 1916200419}
   m_Layer: 0
@@ -1182,21 +1181,6 @@ MonoBehaviour:
       m_Override: 0
       m_Value: 0000000000000000
   m_ConvexRadius_Deprecated: -1
---- !u!114 &1916200420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916200408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c89830e4bf099d43a8f97f00666ac29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numEntityToSpawn: 0
-  alreadySpawn: 1
-  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2086508149
 GameObject:
   m_ObjectHideFlags: 0

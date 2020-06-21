@@ -6,7 +6,7 @@ public class InputManager : SystemBase
 {
     protected override void OnUpdate()
     {
-        var screenWidthPercent = InputCatcherSetter.screenWidth / 100;
+        var screenWidthPercent =  InputCatcherSetter.screenWidth / 100;
         var screenHight = InputCatcherSetter.screenHight;
         Entities
             .ForEach((ref AttackData AIP, ref MoveData MD, ref Speed speed, in DynamicBuffer<InputDataPosition> IDPs, in Translation trans, in GunMoveSettings settings) =>
