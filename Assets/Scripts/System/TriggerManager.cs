@@ -3,6 +3,7 @@ using Unity.Physics;
 using Unity.Physics.Systems;
 using Unity.Jobs;
 using Unity.Burst;
+using Unity.Collections;
 
 public class TriggerManager : SystemBase
 {
@@ -33,8 +34,9 @@ public class TriggerManager : SystemBase
 
         }
     }
-
+    [ReadOnly]
     private BuildPhysicsWorld buildPhysicsWorld;
+    [ReadOnly]
     private StepPhysicsWorld stepPhysicsWorld;
 
     protected override void OnCreate()

@@ -7,8 +7,6 @@ using Unity.Collections;
 public class Spawner : SystemBase
 {
     EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
-    Entity entityPrefabs;
-    NativeArray<Entity> entities;
     protected override void OnCreate()
     {
         m_EndSimulationEcbSystem = World
@@ -16,35 +14,24 @@ public class Spawner : SystemBase
     }
     protected override void OnUpdate()
     {
-        if(entities.Length == 0)
-        {
-            entities = World.EntityManager.GetAllEntities(Allocator.Temp);
-            foreach (Entity entity in entities)
-            {
-                if (EntityManager.HasComponent<PrefabsData>(entity))
-                {
-                    entityPrefabs = entity;
-                        Debug.Log(entities.Length);
-                }
-            }
-
-        }
-        var EP = entityPrefabs;
-        var EM = EntityManager;
         var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer();
 
         Entities
-            .ForEach((Entity entity,int entityInQueryIndex, ref SpawnData spawnData) =>
+            .ForEach((ref DynamicBuffer <EntityToSpawnData> ETS, in DynamicBuffer<PrefabsData> PD) =>
             {
-            if (!spawnData.alreadySpawn)
-            {
-                var b = ecb.Instantiate(EM.GetBuffer<PrefabsData>(EP)[spawnData.numEntityToSpawn].Value);                    
-                    ecb.SetComponent(b, new Translation { Value = spawnData.moveData.startPosition });
-                    ecb.SetComponent(b, spawnData.moveData);
-                    spawnData.alreadySpawn = true;
-                    if (!spawnData.color.Equals(Color.clear))
+                if(ETS.Length != 0)
+                {
+                    for(int i = 0; i < ETS.Length; i++)
                     {
-                        ecb.SetComponent(b, new ColorData { Value = spawnData.color});
+                        var b = ecb.Instantiate(PD[ETS[i].Value.numEntityToSpawn].Value);                    
+                        ecb.SetComponent(b, new Translation { Value = ETS[i].Value.moveData.startPosition });
+                        ecb.SetComponent(b, ETS[i].Value.moveData);
+
+                        if (!ETS[i].Value.color.Equals(Color.clear))
+                        {
+                            ecb.SetComponent(b, new ColorData { Value = ETS[i].Value.color});
+                        }
+                        ETS.RemoveAt(i);
                     }
                 }
             }).Schedule();

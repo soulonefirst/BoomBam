@@ -4,9 +4,11 @@ using Unity.Physics.Systems;
 using Unity.Jobs;
 using Unity.Burst;
 using Unity.Rendering;
+using Unity.Collections;
 
 public class CollisionManager : SystemBase
 {
+    
     [BurstCompile]
     public struct CollisionJob : ICollisionEventsJob
     {
@@ -34,8 +36,9 @@ public class CollisionManager : SystemBase
 
         }
     }
-
+    [ReadOnly]
     private BuildPhysicsWorld buildPhysicsWorld;
+    [ReadOnly]
     private StepPhysicsWorld stepPhysicsWorld;
 
     protected override void OnCreate()

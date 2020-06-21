@@ -5,15 +5,18 @@ public class CheckExplosiveArea : SystemBase
 {
     protected override void OnUpdate()
     {
+        var ETS = EntityManager.GetBuffer<EntityToSpawnData>(GetSingletonEntity<EntityToSpawnData>());
         Entities
-            .ForEach(( ref SpawnData spawnData, in DestroyData destroy,in Translation translation, in ColorData color) =>
+            .WithAll<EnemyTag>()
+            .ForEach((in DestroyData destroy,in Translation translation, in ColorData color) =>
             {
                 if(destroy.Value == true)
                 {
-                    spawnData.numEntityToSpawn = 6;
-                    spawnData.moveData = new MoveData { startPosition = translation.Value, targetPosition = translation.Value, nonStop = 0 };
-                    spawnData.alreadySpawn = false;
-                    spawnData.color = color.Value;
+                    var SD = new SpawnData();
+                    SD.numEntityToSpawn = 6;
+                    SD.moveData = new MoveData { startPosition = translation.Value, targetPosition = translation.Value, nonStop = 0 };
+                    SD.color = color.Value;
+                    ETS.Add(SD);
                 }
             }).Schedule();
     }

@@ -9,21 +9,23 @@ public class Shooting : SystemBase
     {
         var time = Time.ElapsedTime;
         var screenOneThird = InputCatcherSetter.screenHight / 3;
+        var ETS = EntityManager.GetBuffer<EntityToSpawnData>(GetSingletonEntity<EntityToSpawnData>());
         Entities
-            .ForEach((Entity entity, ref SpawnData spawnData, ref AttackData attackPosition, in Translation translation ) => 
+            .ForEach((ref AttackData attackPosition, in Translation translation ) => 
             {
                 if (attackPosition.attackPoint.x != 0 && time - attackPosition.lastAttackTime > attackPosition.fireRate )
                 {
+                    var SD = new SpawnData();
                     if(translation.Value.y <= screenOneThird)
                     {
-                        spawnData.numEntityToSpawn = 0;
+                        SD.numEntityToSpawn = 0;
                     } else if(translation.Value.y <= screenOneThird * 2)
                     {
-                        spawnData.numEntityToSpawn = 1;
+                        SD.numEntityToSpawn = 1;
                     } else
-                        spawnData.numEntityToSpawn = 2;
-                    spawnData.moveData = new MoveData { startPosition = translation.Value, targetPosition = attackPosition.attackPoint, nonStop = 1 };
-                    spawnData.alreadySpawn = false;
+                        SD.numEntityToSpawn = 2;
+                    SD.moveData = new MoveData { startPosition = translation.Value, targetPosition = attackPosition.attackPoint, nonStop = 1 };
+                    ETS.Add(SD);
                     attackPosition.lastAttackTime = time;
                 }
             }).Schedule();
