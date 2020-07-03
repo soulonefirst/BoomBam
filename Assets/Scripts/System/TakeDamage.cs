@@ -1,7 +1,7 @@
 ﻿using Unity.Entities;
 using Unity.Rendering;
 using UnityEngine;
-
+[UpdateBefore(typeof(EnemyDeathSystem))]
 public class TakeDamage : SystemBase
 {
     protected override void OnUpdate()

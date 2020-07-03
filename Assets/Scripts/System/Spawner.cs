@@ -1,9 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
-using Unity.Rendering;
 using UnityEngine;
-using Unity.Collections;
-[UpdateBefore(typeof(DestoySystem))]
 public class Spawner : SystemBase
 {
     EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
@@ -14,8 +11,8 @@ public class Spawner : SystemBase
     }
     protected override void OnUpdate()
     {
+        var time = Time.ElapsedTime;
         var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer();
-
         Entities
             .ForEach((ref DynamicBuffer <EntityToSpawnData> ETS, in DynamicBuffer<PrefabsData> PD) =>
             {
@@ -23,14 +20,13 @@ public class Spawner : SystemBase
                 {
                     for(int i = 0; i < ETS.Length; i++)
                     {
-                        var b = ecb.Instantiate(PD[ETS[i].Value.numEntityToSpawn].Value);                    
-                        ecb.SetComponent(b, new Translation { Value = ETS[i].Value.moveData.startPosition });
+                        ecb.SetComponent(PD[ETS[i].Value.numPrefabToSpawn].Value, new Translation {Value = ETS[i].Value.moveData.startPosition});
+                        var b = ecb.Instantiate(PD[ETS[i].Value.numPrefabToSpawn].Value);
                         ecb.SetComponent(b, ETS[i].Value.moveData);
-
                         if (!ETS[i].Value.color.Equals(Color.clear))
                         {
                             ecb.SetComponent(b, new ColorData { Value = ETS[i].Value.color});
-                        }
+                        } 
                         ETS.RemoveAt(i);
                     }
                 }

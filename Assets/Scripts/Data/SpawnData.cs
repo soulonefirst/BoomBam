@@ -2,7 +2,7 @@
 using UnityEngine;
 public struct SpawnData : IComponentData
 {
-    public int numEntityToSpawn;
+    public int numPrefabToSpawn;
     public MoveData moveData;
     public DamageData damageData;
     public Color color;

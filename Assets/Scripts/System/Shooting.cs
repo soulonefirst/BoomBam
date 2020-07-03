@@ -3,7 +3,7 @@ using Unity.Transforms;
 using Unity.Collections;
 using UnityEngine;
 using Unity.Rendering;
-[UpdateBefore(typeof(Spawner))]
+[UpdateAfter(typeof(InputManager))]
 public class Shooting : SystemBase
 {    protected override void OnUpdate()
     {
@@ -18,12 +18,12 @@ public class Shooting : SystemBase
                     var SD = new SpawnData();
                     if(translation.Value.y <= screenOneThird)
                     {
-                        SD.numEntityToSpawn = 0;
+                        SD.numPrefabToSpawn = 0;
                     } else if(translation.Value.y <= screenOneThird * 2)
                     {
-                        SD.numEntityToSpawn = 1;
+                        SD.numPrefabToSpawn = 1;
                     } else
-                        SD.numEntityToSpawn = 2;
+                        SD.numPrefabToSpawn = 2;
                     SD.moveData = new MoveData { startPosition = translation.Value, targetPosition = attackPosition.attackPoint, nonStop = 1 };
                     ETS.Add(SD);
                     attackPosition.lastAttackTime = time;

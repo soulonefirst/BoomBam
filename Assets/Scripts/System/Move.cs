@@ -11,7 +11,7 @@ public class Move : SystemBase
     {
         var deltaTime = Time.DeltaTime;
         Entities
-            .ForEach((ref PhysicsVelocity velocity, ref MoveData moveData,in Speed speed, in Translation translation) =>
+            .ForEach((Entity entity, ref MoveData moveData,ref Translation translation, in Speed speed) =>
             {
                 if (moveData.nonStop == 2 || moveData.targetPosition.Equals(float3.zero))
                     return;
@@ -23,7 +23,11 @@ public class Move : SystemBase
                 }
                 else
                     dir = math.normalize(moveData.targetPosition - translation.Value) * deltaTime;
-                velocity.Linear = dir* speed.Value;
+                if (HasComponent<PhysicsVelocity>(entity))
+                {
+                    SetComponent(entity, new PhysicsVelocity { Linear = dir * speed.Value });                    
+                } else
+                  translation.Value += dir * speed.Value * deltaTime;
             }).Schedule();
     }
 }

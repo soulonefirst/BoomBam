@@ -1,4 +1,5 @@
 ﻿using Unity.Entities;
+[UpdateBefore(typeof(Spawner))]
 public class DestoySystem : SystemBase
 {
     EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
