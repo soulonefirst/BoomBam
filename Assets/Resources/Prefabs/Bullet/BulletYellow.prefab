@@ -70,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 8752446139770100757, guid: bd4c6c9453b61a149b9860eecf1056fa,
         type: 3}
       propertyPath: m_Name
-      value: Yellow
+      value: BulletYellow
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd4c6c9453b61a149b9860eecf1056fa, type: 3}

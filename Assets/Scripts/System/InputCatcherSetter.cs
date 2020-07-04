@@ -11,14 +11,20 @@ public class InputCatcherSetter : MonoBehaviour
     private float screenToCameraDistance;
     public static float screenWidth;
     public static float screenHight;
-    private void Start()
+
+    public void Initialization()
     {
 
         cam = GetComponent<Camera>();
         screenToCameraDistance = math.abs(transform.position.z);
         screenWidth = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, screenToCameraDistance)).x;
         screenHight = cam.ScreenToWorldPoint(new Vector3( 0, cam.pixelHeight, screenToCameraDistance)).y;
-        EM = World.DefaultGameObjectInjectionWorld.EntityManager;     
+        EM = World.DefaultGameObjectInjectionWorld.EntityManager; 
+    }
+    private void Start()
+    {
+        if (cam == null)
+            Initialization();
 
         NativeArray<Entity> entities = EM.GetAllEntities(Allocator.Temp);
         foreach (Entity entity in entities)

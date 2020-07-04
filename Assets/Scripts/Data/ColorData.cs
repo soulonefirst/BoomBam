@@ -3,5 +3,5 @@ using UnityEngine;
 [GenerateAuthoringComponent]
 public struct ColorData : IComponentData
 {
-    public Color Value;
+    public int Value;
 }

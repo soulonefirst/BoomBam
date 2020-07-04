@@ -23,7 +23,7 @@ public class Spawner : SystemBase
                         ecb.SetComponent(PD[ETS[i].Value.numPrefabToSpawn].Value, new Translation {Value = ETS[i].Value.moveData.startPosition});
                         var b = ecb.Instantiate(PD[ETS[i].Value.numPrefabToSpawn].Value);
                         ecb.SetComponent(b, ETS[i].Value.moveData);
-                        if (!ETS[i].Value.color.Equals(Color.clear))
+                        if (ETS[i].Value.color != 0 )
                         {
                             ecb.SetComponent(b, new ColorData { Value = ETS[i].Value.color});
                         } 

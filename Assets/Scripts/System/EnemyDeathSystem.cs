@@ -22,7 +22,6 @@ public class EnemyDeathSystem : SystemBase
                     var SD2 = new SpawnData();
                     SD2.numPrefabToSpawn = 7;
                     SD2.moveData = new MoveData { startPosition = translation.Value, targetPosition = new float3(translation.Value.x - 30, translation.Value.y, 0), nonStop = 0 };
-                   // SD2.color = new Color(0.003921569f, 0.003921569f, 0.003921569f, 0);
                     ETS.Add(SD2);
                 }
             }).Schedule();
