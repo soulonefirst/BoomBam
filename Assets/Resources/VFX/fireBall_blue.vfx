@@ -374,7 +374,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1000
+      m_SerializableObject: 800
     min: -Infinity
     max: Infinity
     descendantCount: 0
@@ -2916,7 +2916,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 25
           m_Value: 0.01
         - m_ExpressionIndex: 29
-          m_Value: 1000
+          m_Value: 800
         - m_ExpressionIndex: 32
           m_Value: 0
         - m_ExpressionIndex: 34
@@ -12628,7 +12628,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1000
+      m_SerializableObject: 800
     m_Space: 2147483647
   m_Property:
     name: o

@@ -28,7 +28,7 @@ public class ZapuskaikaProveryaika : MonoBehaviour
         enemy.SendEvent("Strike");
         enemy.SetFloat("SparksSizeMultiplier", enemy.GetFloat("SparksSizeMultiplier") + 2);
         enemy.SetFloat("SparksSpawnRate", enemy.GetFloat("SparksSpawnRate") + 10000);
-        yield return new WaitForSeconds(0.12f);
+        yield return new WaitForSeconds(0.13f);
         enemy.SetFloat("SparksSizeMultiplier", enemy.GetFloat("SparksSizeMultiplier") -1.9f);
 
 
