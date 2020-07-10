@@ -216,9 +216,9 @@ MonoBehaviour:
   uiBounds:
     serializedVersion: 2
     x: -1322
-    y: -1900
+    y: -1898
     width: 5095
-    height: 2305
+    height: 2304
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -374,7 +374,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2000
+      m_SerializableObject: 1000
     min: -Infinity
     max: Infinity
     descendantCount: 0
@@ -1535,7 +1535,7 @@ VisualEffectResource:
       /*inout */attributes.position,  /*inout */attributes.seed,  /*inout */attributes.direction,
       float3(0, 0, 0), ArcSphere_sphere_radius_b, (float)6.28318548, (float)1);\n       
       }\n        {\n            SetAttribute_F01429A3( /*inout */attributes.lifetime, 
-      /*inout */attributes.seed, (float)1, (float)3);\n        }\n        \n\r\n\t\t\r\n#if
+      /*inout */attributes.seed, (float)2, (float)6);\n        }\n        \n\r\n\t\t\r\n#if
       VFX_USE_ALIVE_CURRENT\r\n        if (attributes.alive)\r\n#endif       \r\n       
       {\r\n#if USE_DEAD_LIST\r\n\t        uint deadIndex = deadListIn.DecrementCounter();\r\n           
       uint index = deadListIn[deadIndex];\r\n#else\r\n            uint index = particleIndex;\r\n#endif\r\n           
@@ -1617,7 +1617,7 @@ VisualEffectResource:
       /*inout */attributes.velocity, attributes.mass, tmp_ca, tmp_bz, (float)5, (float)5,
       (float)1, (int)3, (float)0.5, (float)2, deltaTime_a);\n\t\t\t}\n\t\t\t{\n\t\t\t   
       ConformToSphere( /*inout */attributes.velocity, attributes.position, attributes.mass,
-      float3(0, 0, 0), Sphere_radius_b, (float)5, (float)20, (float)0.100000001,
+      float3(0, 0, 0), Sphere_radius_b, (float)10, (float)20, (float)0.100000001,
       (float)50, deltaTime_a);\n\t\t\t}\n\t\t\tEulerIntegration( /*inout */attributes.position,
       attributes.velocity, deltaTime_a);\n\t\t\tAge( /*inout */attributes.age, deltaTime_a);\n\t\t\tReap(attributes.age,
       attributes.lifetime,  /*inout */attributes.alive);\n\t\t\t\n\r\n\r\n\t\t\tif
@@ -1661,7 +1661,7 @@ VisualEffectResource:
       Turbulence_18D(attributes.position,  /*inout */attributes.velocity, attributes.mass,
       tmp_ca, tmp_bz, (float)5, (float)5, (float)1, (int)3, (float)0.5, (float)2,
       deltaTime_a);\n\t\t}\n\t\t{\n\t\t    ConformToSphere( /*inout */attributes.velocity,
-      attributes.position, attributes.mass, float3(0, 0, 0), Sphere_radius_b, (float)5,
+      attributes.position, attributes.mass, float3(0, 0, 0), Sphere_radius_b, (float)10,
       (float)20, (float)0.100000001, (float)50, deltaTime_a);\n\t\t}\n\t\tEulerIntegration(
       /*inout */attributes.position, attributes.velocity, deltaTime_a);\n\t\tAge(
       /*inout */attributes.age, deltaTime_a);\n\t\tReap(attributes.age, attributes.lifetime, 
@@ -2916,7 +2916,7 @@ VisualEffectResource:
         - m_ExpressionIndex: 25
           m_Value: 0.01
         - m_ExpressionIndex: 29
-          m_Value: 2000
+          m_Value: 1000
         - m_ExpressionIndex: 32
           m_Value: 0
         - m_ExpressionIndex: 34
@@ -11890,7 +11890,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 1
+      m_SerializableObject: 2
     m_Space: 2147483647
   m_Property:
     name: A
@@ -11931,7 +11931,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 3
+      m_SerializableObject: 6
     m_Space: 2147483647
   m_Property:
     name: B
@@ -12577,7 +12577,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
   m_UIPosition: {x: 0, y: 0}
-  m_UICollapsed: 1
+  m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
   m_OutputSlots:
@@ -12628,7 +12628,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 2000
+      m_SerializableObject: 1000
     m_Space: 2147483647
   m_Property:
     name: o
@@ -14522,7 +14522,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 5
+      m_SerializableObject: 10
     m_Space: 2147483647
   m_Property:
     name: attractionSpeed
