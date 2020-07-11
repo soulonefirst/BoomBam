@@ -1,6 +1,5 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
-using UnityEngine;
 public class Spawner : SystemBase
 {
     EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
@@ -26,7 +25,7 @@ public class Spawner : SystemBase
                         if (ETS[i].Value.color != 0 )
                         {
                             ecb.SetComponent(b, new ColorData { Value = ETS[i].Value.color});
-                        } 
+                        }
                         ETS.RemoveAt(i);
                     }
                 }

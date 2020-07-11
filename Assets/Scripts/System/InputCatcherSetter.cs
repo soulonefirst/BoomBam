@@ -9,7 +9,9 @@ public class InputCatcherSetter : MonoBehaviour
     private DynamicBuffer<InputDataPosition> input;
     private Entity gunEntity;
     private float screenToCameraDistance;
+    [ReadOnly]
     public static float screenWidth;
+    [ReadOnly]
     public static float screenHight;
 
     public void Initialization()
@@ -19,6 +21,8 @@ public class InputCatcherSetter : MonoBehaviour
         screenToCameraDistance = math.abs(transform.position.z);
         screenWidth = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, screenToCameraDistance)).x;
         screenHight = cam.ScreenToWorldPoint(new Vector3( 0, cam.pixelHeight, screenToCameraDistance)).y;
+
+
         EM = World.DefaultGameObjectInjectionWorld.EntityManager; 
     }
     private void Start()

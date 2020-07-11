@@ -2,11 +2,13 @@
 using Unity.Mathematics;
 using Unity.Transforms;
 using UnityEngine;
+using Unity.Collections;
 public class InputManager : SystemBase
 {
     protected override void OnUpdate()
     {
-        var screenWidthPercent =  InputCatcherSetter.screenWidth / 100;
+        var screenWidth = InputCatcherSetter.screenWidth;
+        var screenWidthPercent =  screenWidth/50;
         var screenHight = InputCatcherSetter.screenHight;
         Entities
             .ForEach((ref AttackData AIP, ref MoveData MD, ref Speed speed, in DynamicBuffer<InputDataPosition> IDPs, in Translation trans, in GunMoveSettings settings) =>
@@ -22,7 +24,7 @@ public class InputManager : SystemBase
                     if (IDPs[i].Value.x != 0)
                     {
                         //разделение экрана на зоны движения и стерльбы
-                        if (IDPs[i].Value.x < screenWidthPercent * 20) 
+                        if (IDPs[i].Value.x < -screenWidth + (screenWidthPercent * 20)) 
                         {
                             //назначение заданой позиции для движения
                            MD.targetPosition = new float3(trans.Value.x, IDPs[i].Value.y, 0);
