@@ -12,6 +12,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: -5139020232905899303, guid: bd4c6c9453b61a149b9860eecf1056fa,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.16731933
+      objectReference: {fileID: 0}
+    - target: {fileID: -5139020232905899303, guid: bd4c6c9453b61a149b9860eecf1056fa,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.754717
+      objectReference: {fileID: 0}
+    - target: {fileID: -5139020232905899303, guid: bd4c6c9453b61a149b9860eecf1056fa,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.23220624
+      objectReference: {fileID: 0}
     - target: {fileID: -4518773904762121389, guid: bd4c6c9453b61a149b9860eecf1056fa,
         type: 3}
       propertyPath: m_PropertySheet.m_Int.m_Array.Array.size

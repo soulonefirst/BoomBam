@@ -21,7 +21,8 @@ public class InputCatcherSetter : MonoBehaviour
         screenToCameraDistance = math.abs(transform.position.z);
         screenWidth = cam.ScreenToWorldPoint(new Vector3(cam.pixelWidth, 0, screenToCameraDistance)).x;
         screenHight = cam.ScreenToWorldPoint(new Vector3( 0, cam.pixelHeight, screenToCameraDistance)).y;
-
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
 
         EM = World.DefaultGameObjectInjectionWorld.EntityManager; 
     }
