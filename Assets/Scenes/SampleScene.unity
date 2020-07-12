@@ -210,7 +210,10 @@ VisualEffect:
   m_ResetSeedOnPlay: 1
   m_PropertySheet:
     m_Float:
-      m_Array: []
+      m_Array:
+      - m_Value: 0.3
+        m_Name: StripSize
+        m_Overridden: 0
     m_Vector2f:
       m_Array: []
     m_Vector3f:
@@ -239,7 +242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97343711}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 5, z: 0}
+  m_LocalPosition: {x: 6, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1591,7 +1594,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982470882}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 7eb2321bb3311d64b91b78cfe6f3d513, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: ed2759ab317ac27498ab8f48e1bce7b2, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -1715,7 +1718,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2023738540}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: de5b2bcd6f01a5043b1c0c8ae97aaf6c, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 7677d17f865d57749a4ba040175dfb42, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
