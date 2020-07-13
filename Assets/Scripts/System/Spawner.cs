@@ -19,18 +19,20 @@ public class Spawner : SystemBase
                 {
                     for(int i = 0; i < ETS.Length; i++)
                     {
+                      
                         ecb.SetComponent(PD[ETS[i].Value.numPrefabToSpawn].Value, new Translation {Value = ETS[i].Value.moveData.startPosition});
                         var b = ecb.Instantiate(PD[ETS[i].Value.numPrefabToSpawn].Value);
                         ecb.SetComponent(b, ETS[i].Value.moveData);
                         if (ETS[i].Value.color != 0 )
                         {
                             ecb.SetComponent(b, new ColorData { Value = ETS[i].Value.color});
-                        }
+                        }else
+                        ecb.AddComponent(b, new IdVfxData { Value = ETS[i].Value.numPrefabToSpawn });
                         ETS.RemoveAt(i);
+                        
                     }
                 }
-            }).Schedule();
-        m_EndSimulationEcbSystem.AddJobHandleForProducer(Dependency);
+            }).Run();
         Dependency.Complete();
 
         

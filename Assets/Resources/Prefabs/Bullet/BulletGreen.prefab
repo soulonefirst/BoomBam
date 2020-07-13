@@ -51,8 +51,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Asset
       value: 
-      objectReference: {fileID: 8926484042661614526, guid: 7eb2321bb3311d64b91b78cfe6f3d513,
+      objectReference: {fileID: 8926484042661614526, guid: ed2759ab317ac27498ab8f48e1bce7b2,
         type: 3}
+    - target: {fileID: 3222349308629003122, guid: bd4c6c9453b61a149b9860eecf1056fa,
+        type: 3}
+      propertyPath: Value
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3620283735396055293, guid: bd4c6c9453b61a149b9860eecf1056fa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -113,5 +118,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletGreen
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7249890162690733116, guid: bd4c6c9453b61a149b9860eecf1056fa, type: 3}
+    - {fileID: -4518773904762121389, guid: bd4c6c9453b61a149b9860eecf1056fa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bd4c6c9453b61a149b9860eecf1056fa, type: 3}

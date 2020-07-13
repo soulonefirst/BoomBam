@@ -5,7 +5,6 @@ using Unity.Jobs;
 using Unity.Burst;
 using Unity.Rendering;
 using Unity.Collections;
-using UnityEngine;
 [UpdateBefore(typeof(TakeDamage))]
 public class CollisionManager : SystemBase
 {
@@ -17,26 +16,28 @@ public class CollisionManager : SystemBase
         public ComponentDataFromEntity<TakeDamageData> takeDamage;
         public ComponentDataFromEntity<DestroyData> destroyData;
         public ComponentDataFromEntity<ColorData> colorData;
+        public EntityManager EM;
         public void Execute(CollisionEvent collisionEvent)
         {
-            Entity attacker;
-            Entity target;
             if ((damageData.HasComponent(collisionEvent.EntityA) && takeDamage.HasComponent(collisionEvent.EntityB))
                 || (damageData.HasComponent(collisionEvent.EntityB) && takeDamage.HasComponent(collisionEvent.EntityA)))
             {
+                Entity attacker;
+                Entity target;
                 attacker = damageData.HasComponent(collisionEvent.EntityA) ? collisionEvent.EntityA : collisionEvent.EntityB;
                 target = takeDamage.HasComponent(collisionEvent.EntityA) ? collisionEvent.EntityA : collisionEvent.EntityB;
                 if (colorData[attacker].Value == colorData[target].Value)
                 {
-
                     TakeDamageData takeDamageData = new TakeDamageData { Value = damageData[attacker] };
                     takeDamage[target] = takeDamageData;
+
                 }
                 destroyData[attacker] = new DestroyData { Value = true };
             }
 
         }
     }
+
     [ReadOnly]
     private BuildPhysicsWorld buildPhysicsWorld;
     [ReadOnly]
@@ -54,7 +55,8 @@ public class CollisionManager : SystemBase
             damageData = GetComponentDataFromEntity<DamageData>(),
             takeDamage = GetComponentDataFromEntity<TakeDamageData>(),
             destroyData = GetComponentDataFromEntity<DestroyData>(),
-            colorData = GetComponentDataFromEntity<ColorData>()
+            colorData = GetComponentDataFromEntity<ColorData>(),
+            EM = EntityManager
         };
         JobHandle job = triggerJob.Schedule(stepPhysicsWorld.Simulation, ref buildPhysicsWorld.PhysicsWorld, Dependency);
         job.Complete();

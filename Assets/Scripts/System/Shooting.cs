@@ -8,7 +8,8 @@ public class Shooting : SystemBase
 {    protected override void OnUpdate()
     {
         var time = Time.ElapsedTime;
-        var screenOneThird = InputCatcherSetter.screenHight / 3;
+        var screenOneThird = InputCatcherSetter.screenHight*2 / 3;
+        var sreenBottom = -InputCatcherSetter.screenHight;
         var ETS = EntityManager.GetBuffer<EntityToSpawnData>(GetSingletonEntity<EntityToSpawnData>());
         Entities
             .ForEach((ref AttackData attackPosition, in Translation translation ) => 
@@ -16,10 +17,10 @@ public class Shooting : SystemBase
                 if (attackPosition.attackPoint.x != 0 && time - attackPosition.lastAttackTime > attackPosition.fireRate )
                 {
                     var SD = new SpawnData();
-                    if(translation.Value.y <= screenOneThird)
+                    if(translation.Value.y <= sreenBottom + screenOneThird)
                     {
                         SD.numPrefabToSpawn = 0;
-                    } else if(translation.Value.y <= screenOneThird * 2)
+                    } else if(translation.Value.y <= sreenBottom + screenOneThird * 2)
                     {
                         SD.numPrefabToSpawn = 1;
                     } else

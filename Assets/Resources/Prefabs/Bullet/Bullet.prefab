@@ -16,8 +16,7 @@ GameObject:
   - component: {fileID: 5913538551050228266}
   - component: {fileID: -8914450568191090027}
   - component: {fileID: -3338751973809222210}
-  - component: {fileID: -9212899428371135854}
-  - component: {fileID: -1305594082511313896}
+  - component: {fileID: 3222349308629003122}
   - component: {fileID: -4518773904762121389}
   - component: {fileID: -7249890162690733116}
   m_Layer: 0
@@ -325,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 0
---- !u!114 &-9212899428371135854
+--- !u!114 &3222349308629003122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -334,23 +333,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8752446139770100757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f3838ea56d13624fa218b12c2f8b8ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e930b122e1fa42449fec645ee2681ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1305594082511313896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8752446139770100757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e9aea9d10a3adf458f20c71914db303, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTime: 0
-  lifeTime: 5
+  Value: 0
 --- !u!2083052967 &-4518773904762121389
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -404,11 +390,7 @@ VFXRenderer:
   m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
