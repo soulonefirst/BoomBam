@@ -4,12 +4,14 @@ using Unity.Transforms;
 using UnityEngine.VFX;
 using System.Collections;
 
+
 public class VFXTransformRelation : MonoBehaviour
 {
     public Entity ent;
+    public int poolId;
     private bool damagable;
     EntityManager EM;
-    VisualEffect enemy;
+    VisualEffect visualEffect;
     private float ssmultAdd;
     private float ssrAdd;
     private float ssminAdd;
@@ -23,10 +25,11 @@ public class VFXTransformRelation : MonoBehaviour
     private void Start()
     {
         EM = World.DefaultGameObjectInjectionWorld.EntityManager;
-        enemy = GetComponent<VisualEffect>();
+        visualEffect = GetComponent<VisualEffect>();
         if (EM.HasComponent<TakeDamageData>(ent))
         {
             damagable = true;
+            hp = EM.GetComponentData<Hp>(ent).Value;
         }
     }
 
@@ -37,41 +40,40 @@ public class VFXTransformRelation : MonoBehaviour
             transform.position = EM.GetComponentData<Translation>(ent).Value;
             if (damagable)
             {
-                if(EM.GetComponentData<Hp>(ent).Value == 2 && hp != 2)
-                {                    
-                    StartCoroutine("Pulse");
-                    hp = 2;
-                }
-                if (EM.GetComponentData<Hp>(ent).Value == 1 && hp != 1)
+                if (EM.GetComponentData<Hp>(ent).Value != hp)
                 {
                     StartCoroutine("Pulse");
-                    hp = 1;
+                    hp = EM.GetComponentData<Hp>(ent).Value;
                 }
             }
         }
         else
         {
-            if (!damagable)
-            {
-                Destroy(gameObject);
-            }
-
+            AddToPool();
         }
 
     }
 
+    private void AddToPool()
+    {
+        SpawningVFX.pool[poolId].Enqueue(gameObject);
+
+        //
+        gameObject.SetActive(false);
+    }
     IEnumerator Pulse()
     {
-        enemy.SendEvent("Strike");
-        enemy.SetFloat("SparksSizeMultiplier", enemy.GetFloat("SparksSizeMultiplier") + 2.5f + ssmultAdd);
-        enemy.SetFloat("TrailsSphereSizeMult", enemy.GetFloat("TrailsSphereSizeMult") + 0.7f);
-        enemy.SetFloat("SparksSpawnRate", enemy.GetFloat("SparksSpawnRate") + 700 + ssrAdd);
-        enemy.SetFloat("SparksSizeMinimum", enemy.GetFloat("SparksSizeMinimum") + 0.015f + ssminAdd);
-        enemy.SetFloat("SparksSizeMaximum", enemy.GetFloat("SparksSizeMaximum") + 0.02f + ssmaxAdd);
-        enemy.SetFloat("StripSize", enemy.GetFloat("StripSize") + 0.7f + ssAdd);
+
+         visualEffect.SendEvent("Strike");
+         visualEffect.SetFloat("SparksSizeMultiplier",  visualEffect.GetFloat("SparksSizeMultiplier") + 2.5f + ssmultAdd);
+         visualEffect.SetFloat("TrailsSphereSizeMult",  visualEffect.GetFloat("TrailsSphereSizeMult") + 0.7f);
+         visualEffect.SetFloat("SparksSpawnRate",  visualEffect.GetFloat("SparksSpawnRate") + 700 + ssrAdd);
+         visualEffect.SetFloat("SparksSizeMinimum",  visualEffect.GetFloat("SparksSizeMinimum") + 0.015f + ssminAdd);
+         visualEffect.SetFloat("SparksSizeMaximum",  visualEffect.GetFloat("SparksSizeMaximum") + 0.02f + ssmaxAdd);
+         visualEffect.SetFloat("StripSize",  visualEffect.GetFloat("StripSize") + 0.7f + ssAdd);
         yield return new WaitForSeconds(0.2f + wfsAdd);
-        enemy.SetFloat("SparksSizeMultiplier", enemy.GetFloat("SparksSizeMultiplier") - 2.4f - ssmultAdd);
-        enemy.SetFloat("TrailsSphereSizeMult", enemy.GetFloat("TrailsSphereSizeMult") - 0.35f);
+         visualEffect.SetFloat("SparksSizeMultiplier",  visualEffect.GetFloat("SparksSizeMultiplier") - 2.4f - ssmultAdd);
+         visualEffect.SetFloat("TrailsSphereSizeMult",  visualEffect.GetFloat("TrailsSphereSizeMult") - 0.35f);
 
         ssmultAdd = 0.5f;
         ssrAdd = 6500;

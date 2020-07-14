@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 0
-  lifeTime: 10
+  lifeTime: 15
 --- !u!114 &1297506265265200238
 MonoBehaviour:
   m_ObjectHideFlags: 0

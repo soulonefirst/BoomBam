@@ -1,5 +1,6 @@
 ﻿using Unity.Entities;
 using Unity.Transforms;
+using Unity.Collections;
 public class Spawner : SystemBase
 {
     EndSimulationEntityCommandBufferSystem m_EndSimulationEcbSystem;
@@ -13,28 +14,26 @@ public class Spawner : SystemBase
         var time = Time.ElapsedTime;
         var ecb = m_EndSimulationEcbSystem.CreateCommandBuffer();
         Entities
-            .ForEach((ref DynamicBuffer <EntityToSpawnData> ETS, in DynamicBuffer<PrefabsData> PD) =>
+            .ForEach((ref DynamicBuffer<EntityToSpawnData> ETS, in DynamicBuffer<PrefabsData> PD) =>
             {
-                if(ETS.Length != 0)
+                if (ETS.Length != 0)
                 {
-                    for(int i = 0; i < ETS.Length; i++)
+                    for (int i = 0; i < ETS.Length; i++)
                     {
-                      
-                        ecb.SetComponent(PD[ETS[i].Value.numPrefabToSpawn].Value, new Translation {Value = ETS[i].Value.moveData.startPosition});
+
+                        ecb.SetComponent(PD[ETS[i].Value.numPrefabToSpawn].Value, new Translation { Value = ETS[i].Value.moveData.startPosition });
                         var b = ecb.Instantiate(PD[ETS[i].Value.numPrefabToSpawn].Value);
                         ecb.SetComponent(b, ETS[i].Value.moveData);
-                        if (ETS[i].Value.color != 0 )
+                        if (ETS[i].Value.color != 0)
                         {
-                            ecb.SetComponent(b, new ColorData { Value = ETS[i].Value.color});
-                        }else
-                        ecb.AddComponent(b, new IdVfxData { Value = ETS[i].Value.numPrefabToSpawn });
+                            ecb.SetComponent(b, new ColorData { Value = ETS[i].Value.color });
+                        }
+                        else
+                            ecb.AddComponent(b, new IdVfxData { Value = ETS[i].Value.numPrefabToSpawn });
                         ETS.RemoveAt(i);
-                        
                     }
                 }
-            }).Run();
-        Dependency.Complete();
-
+            }).Schedule();
         
     }
 }

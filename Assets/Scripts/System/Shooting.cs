@@ -8,7 +8,7 @@ public class Shooting : SystemBase
 {    protected override void OnUpdate()
     {
         var time = Time.ElapsedTime;
-        var screenOneThird = InputCatcherSetter.screenHight*2 / 3;
+        var screenOneThird = InputCatcherSetter.screenHight * 2 / 3;
         var sreenBottom = -InputCatcherSetter.screenHight;
         var ETS = EntityManager.GetBuffer<EntityToSpawnData>(GetSingletonEntity<EntityToSpawnData>());
         Entities
